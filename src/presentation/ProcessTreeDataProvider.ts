@@ -13,8 +13,14 @@ export class ProcessTreeDataProvider
 	>();
 
 	readonly onDidChangeTreeData = this._onDidChangeTreeData.event;
+	private searchText: string = '';
 
 	constructor(private readonly processRepository: ProcessRepository) {}
+
+	setSearchText(text: string): void {
+		this.searchText = text.toLowerCase();
+		this.refresh();
+	}
 
 	refresh(): void {
 		this._onDidChangeTreeData.fire();
@@ -30,7 +36,14 @@ export class ProcessTreeDataProvider
 
 	async getChildren(): Promise<ProcessTreeItem[]> {
 		const processes = await this.processRepository.search();
-		const nodes = processes.map((process) => new ProcessTreeItem(process));
+		const filteredProcesses = this.searchText
+			? processes.filter(
+				(process) =>
+					process.label.toLowerCase().includes(this.searchText) ||
+					process.description.toLowerCase().includes(this.searchText)
+			)
+			: processes;
+		const nodes = filteredProcesses.map((process) => new ProcessTreeItem(process));
 
 		return nodes;
 	}

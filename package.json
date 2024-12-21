@@ -42,6 +42,11 @@
 				"command": "portman.kill",
 				"title": "Portman: Kill Process",
 				"icon": "$(debug-stop)"
+			},
+			{
+				"command": "portman.searchPorts",
+				"title": "Portman: Search Ports",
+				"icon": "$(search)"
 			}
 		],
 		"viewsContainers": {
@@ -80,9 +85,14 @@
 		"menus": {
 			"view/title": [
 				{
+					"command": "portman.searchPorts",
+					"when": "view == portman",
+					"group": "navigation@1"
+				},
+				{
 					"command": "portman.refresh",
 					"when": "view == portman",
-					"group": "navigation"
+					"group": "navigation@2"
 				},
 				{
 					"command": "portman.refresh",

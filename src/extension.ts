@@ -8,13 +8,14 @@ import { ProcessTreeView } from './presentation/views/ProcessTreeView';
 import { RefreshProcessesCommand } from './presentation/commands/RefreshProcessesCommand';
 import { ShowProcessInfoCommand } from './presentation/commands/ShowProcessInfoCommand';
 import { KillProcessCommand } from './presentation/commands/KillProcessCommand';
+import { MacosProcessRepository } from './infrastructure/macos/MacosProcessRepository';
 
 export function activate(context: vscode.ExtensionContext) {
 	const repository: ProcessRepository = {
 		aix: new NotImplementedProcessRepository(),
 		android: new LinuxProcessRepository(),
 		cygwin: new LinuxProcessRepository(),
-		darwin: new LinuxProcessRepository(),
+		darwin: new MacosProcessRepository(),
 		freebsd: new LinuxProcessRepository(),
 		haiku: new LinuxProcessRepository(),
 		linux: new LinuxProcessRepository(),
